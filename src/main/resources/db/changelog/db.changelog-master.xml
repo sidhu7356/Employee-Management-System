@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- V1: Create EMS schema -->
+    <changeSet id="1" author="system">
+        <sqlFile path="sql/V1__create_schema.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- V2: Create department table (without department_head_id to avoid circular FK) -->
+    <changeSet id="2" author="system">
+        <sqlFile path="sql/V2__create_department_table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- V3: Create employee table with FK to department and self-reference -->
+    <changeSet id="3" author="system">
+        <sqlFile path="sql/V3__create_employee_table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- V4: Add department_head_id FK to department (after employee table exists) -->
+    <changeSet id="4" author="system">
+        <sqlFile path="sql/V4__add_department_head.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- V5: Seed department data (without heads — employees don't exist yet) -->
+    <changeSet id="5" author="system">
+        <sqlFile path="sql/V5__seed_departments.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- V6: Seed employee data with full hierarchy -->
+    <changeSet id="6" author="system">
+        <sqlFile path="sql/V6__seed_employees.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- V7: Set department heads now that employees are inserted -->
+    <changeSet id="7" author="system">
+        <sqlFile path="sql/V7__update_department_heads.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+</databaseChangeLog>
