@@ -75,7 +75,7 @@ CREATE DATABASE ems_db;
 | Port     | 5432        |
 | Database | ems_db      |
 | Username | postgres    |
-| Password | postgres    |
+| Password | root    |
 
 To override, set environment variables: `DATASOURCE_URL`, `DATASOURCE_USERNAME`, `DATASOURCE_PASSWORD`.
 
