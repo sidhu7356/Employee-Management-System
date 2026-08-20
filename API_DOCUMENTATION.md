@@ -223,6 +223,7 @@ Fetches a paginated list of employees. Supports lookup mode for lightweight drop
   - `lookup` (boolean, optional, default: `false`): If `true`, returns lightweight `id` + `name` pairs only.
   - `page` (int, optional, default: `0`): Page index (0-indexed).
   - `size` (int, optional, default: `20`): Page size.
+  - `sort` (List<String>, optional): Sorting criteria in format `property(,asc|desc)`. Example: `sort=name,asc` or `sort=salary,desc`.
 
 #### Mode A: Full Details (`GET /api/v1/employees?page=0&size=20`)
 
@@ -531,6 +532,7 @@ Retrieves department details. Supports expanding embedded employee list.
   - `expand` (string, optional): Pass `employee` to include paginated assigned employees.
   - `page` (int, optional, default: `0`): Page index (used only when `expand=employee`).
   - `size` (int, optional, default: `20`): Page size (used only when `expand=employee`).
+  - `sort` (List<String>, optional): Sorting criteria in format `property(,asc|desc)` (used only when `expand=employee`). Example: `sort=name,asc`.
 
 #### Mode A: Standard Department Info (`GET /api/v1/departments/1`)
 
@@ -615,6 +617,7 @@ Returns a paginated list of all departments.
 - **Query Parameters:**
   - `page` (int, optional, default: `0`): Page index (0-indexed).
   - `size` (int, optional, default: `20`): Page size.
+  - `sort` (List<String>, optional): Sorting criteria in format `property(,asc|desc)`. Example: `sort=name,asc` or `sort=creationDate,desc`.
 
 #### Sample Request (cURL)
 ```bash
