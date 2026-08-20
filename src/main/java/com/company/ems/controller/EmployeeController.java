@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -81,7 +82,7 @@ public class EmployeeController {
     public ResponseEntity<?> getAllEmployees(
             @Parameter(description = "If true, returns lightweight id+name lookup list")
             @RequestParam(defaultValue = "false") boolean lookup,
-            @PageableDefault(size = 20, page = 0) Pageable pageable) {
+            @ParameterObject @PageableDefault(size = 20, page = 0) Pageable pageable) {
 
         if (lookup) {
             PagedResponse<EmployeeLookupResponse> lookupResponse = employeeService.getEmployeeLookup(pageable);
