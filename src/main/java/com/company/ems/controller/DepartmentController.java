@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -44,7 +45,7 @@ public class DepartmentController {
     @Operation(summary = "Update a department",
             description = "Updates all fields of an existing department.")
     public DepartmentResponse updateDepartment(
-            @Parameter(description = "Department ID") @PathVariable Long id,
+            @Parameter(description = "Department ID") @PathVariable(name = "id") Long id,
             @Valid @RequestBody UpdateDepartmentRequest request) {
         return departmentService.updateDepartment(id, request);
     }
@@ -57,7 +58,7 @@ public class DepartmentController {
     @Operation(summary = "Delete a department",
             description = "Deletes a department. Fails with 422 if any employees are assigned to it.")
     public void deleteDepartment(
-            @Parameter(description = "Department ID") @PathVariable Long id) {
+            @Parameter(description = "Department ID") @PathVariable(name = "id") Long id) {
         departmentService.deleteDepartment(id);
     }
 
@@ -77,10 +78,10 @@ public class DepartmentController {
                     """
     )
     public ResponseEntity<?> getDepartmentById(
-            @Parameter(description = "Department ID") @PathVariable Long id,
+            @Parameter(description = "Department ID") @PathVariable(name = "id") Long id,
             @Parameter(description = "Use 'employee' to expand the employee list")
-            @RequestParam(required = false) String expand,
-            @PageableDefault(size = 20, page = 0) Pageable pageable) {
+            @RequestParam(name = "expand", required = false) String expand,
+            @ParameterObject @PageableDefault(size = 20, page = 0) Pageable pageable) {
 
         if ("employee".equalsIgnoreCase(expand)) {
             DepartmentWithEmployeesResponse response = departmentService.getDepartmentWithEmployees(id, pageable);
@@ -98,7 +99,7 @@ public class DepartmentController {
     @Operation(summary = "Get all departments",
             description = "Returns a paginated list of all departments.")
     public PagedResponse<DepartmentResponse> getAllDepartments(
-            @PageableDefault(size = 20, page = 0) Pageable pageable) {
+            @ParameterObject @PageableDefault(size = 20, page = 0) Pageable pageable) {
         return departmentService.getAllDepartments(pageable);
     }
 
@@ -111,7 +112,7 @@ public class DepartmentController {
             description = "Returns employee count, average salary, and total salary for the department."
     )
     public DepartmentAnalyticsResponse getDepartmentAnalytics(
-            @Parameter(description = "Department ID") @PathVariable Long id) {
+            @Parameter(description = "Department ID") @PathVariable(name = "id") Long id) {
         return departmentService.getDepartmentAnalytics(id);
     }
 }
