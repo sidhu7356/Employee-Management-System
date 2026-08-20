@@ -48,7 +48,7 @@ public class EmployeeController {
     @Operation(summary = "Update an employee",
             description = "Updates all fields of an existing employee.")
     public EmployeeResponse updateEmployee(
-            @Parameter(description = "Employee ID") @PathVariable Long id,
+            @Parameter(description = "Employee ID") @PathVariable(name = "id") Long id,
             @Valid @RequestBody UpdateEmployeeRequest request) {
         return employeeService.updateEmployee(id, request);
     }
@@ -60,7 +60,7 @@ public class EmployeeController {
     @Operation(summary = "Get employee by ID",
             description = "Returns full employee details by ID.")
     public EmployeeResponse getEmployeeById(
-            @Parameter(description = "Employee ID") @PathVariable Long id) {
+            @Parameter(description = "Employee ID") @PathVariable(name = "id") Long id) {
         return employeeService.getEmployeeById(id);
     }
 
@@ -81,7 +81,7 @@ public class EmployeeController {
     )
     public ResponseEntity<?> getAllEmployees(
             @Parameter(description = "If true, returns lightweight id+name lookup list")
-            @RequestParam(defaultValue = "false") boolean lookup,
+            @RequestParam(name = "lookup", defaultValue = "false") boolean lookup,
             @ParameterObject @PageableDefault(size = 20, page = 0) Pageable pageable) {
 
         if (lookup) {
@@ -100,7 +100,7 @@ public class EmployeeController {
     @Operation(summary = "Update employee's department",
             description = "Updates only the department assignment for an existing employee.")
     public EmployeeResponse updateEmployeeDepartment(
-            @Parameter(description = "Employee ID") @PathVariable Long id,
+            @Parameter(description = "Employee ID") @PathVariable(name = "id") Long id,
             @Valid @RequestBody UpdateEmployeeDepartmentRequest request) {
         return employeeService.updateEmployeeDepartment(id, request);
     }
@@ -118,7 +118,7 @@ public class EmployeeController {
                     """
     )
     public List<EmployeeSummaryResponse> getReportingChain(
-            @Parameter(description = "Employee ID") @PathVariable Long id) {
+            @Parameter(description = "Employee ID") @PathVariable(name = "id") Long id) {
         return employeeService.getReportingChain(id);
     }
 }
