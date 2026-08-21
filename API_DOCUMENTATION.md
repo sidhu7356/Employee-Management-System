@@ -29,6 +29,7 @@ This document contains a complete reference of all REST API endpoints available 
 - **Base URL:** `http://localhost:8080`
 - **Content-Type Header:** `application/json` (for POST, PUT, PATCH)
 - **Swagger / OpenAPI Documentation:** `http://localhost:8080/swagger-ui.html`
+- **Postman Collection:** [Employee Management System.postman_collection.json](file:///d:/Learning/Projects/Employee-Management-System/postman/Employee%20Management%20System.postman_collection.json)
 
 ---
 
