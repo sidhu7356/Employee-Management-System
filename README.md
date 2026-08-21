@@ -125,10 +125,11 @@ The application starts on **http://localhost:8080**.
 
 For complete API endpoint details including cURL commands, query parameters, request bodies, and sample JSON responses, see **[API_DOCUMENTATION.md](file:///d:/Learning/Projects/Employee-Management-System/API_DOCUMENTATION.md)**.
 
-Once the application is running, you can also access interactive Swagger UI at:
+Once the application is running, you can also access interactive Swagger UI or import the Postman collection:
 
 - **Swagger UI:** http://localhost:8080/swagger-ui.html
 - **OpenAPI JSON:** http://localhost:8080/api-docs
+- **Postman Collection:** [postman/Employee Management System.postman_collection.json](file:///d:/Learning/Projects/Employee-Management-System/postman/Employee%20Management%20System.postman_collection.json)
 
 ---
 

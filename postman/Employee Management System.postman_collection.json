@@ -1,0 +1,432 @@
+{
+  "info": {
+    "_postman_id": "64718844-ece7-4c66-9e85-ef920cf21e15",
+    "name": "Employee Management System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "40544836"
+  },
+  "item": [
+    {
+      "name": "Departments",
+      "item": [
+        {
+          "name": "Get Departments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/departments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "departments"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0",
+                  "disabled": true
+                },
+                {
+                  "key": "size",
+                  "value": "20",
+                  "disabled": true
+                },
+                {
+                  "key": "sort",
+                  "value": "name,desc",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Department",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/departments?expand=employee",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "departments"
+              ],
+              "query": [
+                {
+                  "key": "expand",
+                  "value": "employee"
+                },
+                {
+                  "key": "page",
+                  "value": "0",
+                  "disabled": true
+                },
+                {
+                  "key": "size",
+                  "value": "20",
+                  "disabled": true
+                },
+                {
+                  "key": "sort",
+                  "value": "name",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Department",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Marketing\",\n  \"creationDate\": \"2026-08-21\",\n  \"departmentHeadId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/departments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "departments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Department",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cleaning\",\n  \"creationDate\": \"2026-08-21\",\n  \"departmentHeadId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/departments/5",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "departments",
+                "5"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Department",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/departments/4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "departments",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Department Analytics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/departments/3/analytics",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "departments",
+                "3",
+                "analytics"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Employees",
+      "item": [
+        {
+          "name": "Get All Employees",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/employees?lookup=true&page=0&size=30&sort=name",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "employees"
+              ],
+              "query": [
+                {
+                  "key": "lookup",
+                  "value": "true"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "30"
+                },
+                {
+                  "key": "sort",
+                  "value": "name"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Employee",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Get Employee",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/employees/27",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "employees",
+                "27"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Employee",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sam\",\n  \"dateOfBirth\": \"2006-08-21\",\n  \"salary\": 36000.01,\n  \"departmentId\": 1,\n  \"address\": \"Kannur\",\n  \"roleTitle\": \"QA Tester\",\n  \"joiningDate\": \"2026-08-21\",\n  \"yearlyBonusPercentage\": 30,\n  \"reportingManagerId\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/employees/27",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "employees",
+                "27"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Patch  Employee Department",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"departmentId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/employees/26/department",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "employees",
+                "26",
+                "department"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Employee Reporting Chain",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/employees/23/reporting-chain",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "employees",
+                "23",
+                "reporting-chain"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
