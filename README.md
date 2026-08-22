@@ -20,6 +20,123 @@ A production-ready **Spring Boot 3.x** REST API backend for managing employees a
 
 ---
 
+## Architecture & Flow Diagrams
+
+### Application Layer Flow
+
+```mermaid
+flowchart TD
+    Client(["🌐 Client\n(Browser / Postman / App)"])
+
+    subgraph SpringBoot["Spring Boot Application"]
+        direction TB
+        Controller["🎮 REST Controller\n/api/v1/employees\n/api/v1/departments"]
+        Service["⚙️ Service Layer\nBusiness Logic &\nValidation"]
+        Mapper["🔄 Mapper\nEntity ↔ DTO"]
+        Repository["🗄️ Repository\nSpring Data JPA"]
+    end
+
+    subgraph Infrastructure["Infrastructure"]
+        direction TB
+        Liquibase["📋 Liquibase\nDB Migrations"]
+        DB[("🐘 PostgreSQL\nems_db")]
+    end
+
+    subgraph CrossCutting["Cross-Cutting Concerns"]
+        direction TB
+        Swagger["📄 Swagger UI\n/swagger-ui.html"]
+        ExHandler["🛡️ Global Exception\nHandler"]
+        OpenAPI["📑 OpenAPI JSON\n/api-docs"]
+    end
+
+    Client -->|"HTTP Request"| Controller
+    Controller -->|"Request DTO"| Service
+    Service -->|"Entity"| Mapper
+    Mapper -->|"DTO"| Service
+    Service -->|"JPQL / Method Query"| Repository
+    Repository -->|"SQL"| DB
+    DB -->|"ResultSet"| Repository
+    Repository -->|"Entity"| Service
+    Service -->|"Response DTO"| Controller
+    Controller -->|"HTTP Response (JSON)"| Client
+
+    Liquibase -->|"DDL + Seed SQL\non startup"| DB
+
+    Controller -.->|"Error thrown"| ExHandler
+    ExHandler -.->|"Structured JSON Error"| Client
+
+    Swagger -.->|"Reads"| Controller
+    OpenAPI -.->|"Reads"| Controller
+
+    style SpringBoot fill:#1e3a5f,stroke:#4a90d9,color:#fff
+    style Infrastructure fill:#1a3a2a,stroke:#4caf50,color:#fff
+    style CrossCutting fill:#3a1a2a,stroke:#e91e63,color:#fff
+    style Client fill:#4a3000,stroke:#ff9800,color:#fff
+```
+
+---
+
+### API Request Sequence — Create Employee
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Client as 🌐 Client
+    participant Controller as 🎮 EmployeeController
+    participant Service as ⚙️ EmployeeService
+    participant Mapper as 🔄 EmployeeMapper
+    participant DeptRepo as 🗄️ DepartmentRepository
+    participant EmpRepo as 🗄️ EmployeeRepository
+    participant DB as 🐘 PostgreSQL
+
+    Client->>+Controller: POST /api/v1/employees<br/>{name, salary, departmentId, ...}
+    Note over Controller: Bean Validation (@Valid)
+
+    alt Validation fails
+        Controller-->>Client: 400 Bad Request<br/>{field errors}
+    end
+
+    Controller->>+Service: createEmployee(EmployeeRequestDTO)
+
+    Service->>+DeptRepo: findById(departmentId)
+    DeptRepo->>+DB: SELECT * FROM ems.department WHERE id = ?
+    DB-->>-DeptRepo: Department row
+    DeptRepo-->>-Service: Optional<Department>
+
+    alt Department not found
+        Service-->>Controller: ResourceNotFoundException
+        Controller-->>Client: 404 Not Found<br/>{"message": "Department not found"}
+    end
+
+    opt reportingManagerId provided
+        Service->>+EmpRepo: findById(reportingManagerId)
+        EmpRepo->>+DB: SELECT * FROM ems.employee WHERE id = ?
+        DB-->>-EmpRepo: Employee row
+        EmpRepo-->>-Service: Optional<Employee>
+
+        alt Manager not found
+            Service-->>Controller: ResourceNotFoundException
+            Controller-->>Client: 404 Not Found<br/>{"message": "Employee not found"}
+        end
+    end
+
+    Service->>+Mapper: toEntity(EmployeeRequestDTO, department, manager)
+    Mapper-->>-Service: Employee entity
+
+    Service->>+EmpRepo: save(Employee)
+    EmpRepo->>+DB: INSERT INTO ems.employee (...) VALUES (...)
+    DB-->>-EmpRepo: Saved Employee (with generated id)
+    EmpRepo-->>-Service: Employee entity
+
+    Service->>+Mapper: toResponseDTO(Employee)
+    Mapper-->>-Service: EmployeeResponseDTO
+
+    Service-->>-Controller: EmployeeResponseDTO
+    Controller-->>-Client: 201 Created<br/>{id, name, salary, department, ...}
+```
+
+---
+
 ## Project Structure
 
 ```
