@@ -41,9 +41,6 @@ public class EmployeeController {
         return employeeService.createEmployee(request);
     }
 
-    // ----------------------------------------------------------------
-    // PUT /api/v1/employees/{id}
-    // ----------------------------------------------------------------
     @PutMapping("/{id}")
     @Operation(summary = "Update an employee",
             description = "Updates all fields of an existing employee.")
@@ -53,9 +50,6 @@ public class EmployeeController {
         return employeeService.updateEmployee(id, request);
     }
 
-    // ----------------------------------------------------------------
-    // GET /api/v1/employees/{id}
-    // ----------------------------------------------------------------
     @GetMapping("/{id}")
     @Operation(summary = "Get employee by ID",
             description = "Returns full employee details by ID.")

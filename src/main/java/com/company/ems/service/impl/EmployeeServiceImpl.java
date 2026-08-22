@@ -33,6 +33,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final DepartmentRepository departmentRepository;
     private final EmployeeMapper employeeMapper;
 
+    private static final String DEPARTMENT = "Department";
+
     // ----------------------------------------------------------------
     // Create
     // ----------------------------------------------------------------
@@ -45,7 +47,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         log.debug("Validating department with id: {}", request.getDepartmentId());
         Department department = departmentRepository.findById(request.getDepartmentId())
-                .orElseThrow(() -> new ResourceNotFoundException("Department", request.getDepartmentId()));
+                .orElseThrow(() -> new ResourceNotFoundException(DEPARTMENT, request.getDepartmentId()));
         log.debug("Department resolved: id={}, name='{}'", department.getId(), department.getName());
 
         Employee reportingManager = resolveReportingManager(request.getReportingManagerId());
@@ -75,7 +77,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         log.debug("Validating new department with id: {}", request.getDepartmentId());
         Department department = departmentRepository.findById(request.getDepartmentId())
-                .orElseThrow(() -> new ResourceNotFoundException("Department", request.getDepartmentId()));
+                .orElseThrow(() -> new ResourceNotFoundException(DEPARTMENT, request.getDepartmentId()));
         log.debug("New department resolved: id={}, name='{}'", department.getId(), department.getName());
 
         Employee reportingManager = resolveReportingManager(request.getReportingManagerId());
@@ -148,7 +150,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         log.debug("Validating new department with id: {}", request.getDepartmentId());
         Department department = departmentRepository.findById(request.getDepartmentId())
-                .orElseThrow(() -> new ResourceNotFoundException("Department", request.getDepartmentId()));
+                .orElseThrow(() -> new ResourceNotFoundException(DEPARTMENT, request.getDepartmentId()));
 
         employee.setDepartment(department);
         Employee updated = employeeRepository.save(employee);
@@ -177,14 +179,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         log.info("Reporting chain for employee id={}: {} level(s) up to top manager", id, chain.size());
         if (log.isDebugEnabled()) {
             chain.forEach(p -> log.debug("  Chain member: id={}, name='{}', role='{}'",
-                    p.getId(), p.getName(), p.getRole_title()));
+                    p.getId(), p.getName(), p.getRoleTitle()));
         }
 
         return chain.stream()
                 .map(p -> EmployeeSummaryResponse.builder()
                         .id(p.getId())
                         .name(p.getName())
-                        .roleTitle(p.getRole_title())
+                        .roleTitle(p.getRoleTitle())
                         .build())
                 .toList();
     }
