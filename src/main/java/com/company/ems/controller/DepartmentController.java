@@ -38,9 +38,6 @@ public class DepartmentController {
         return departmentService.createDepartment(request);
     }
 
-    // ----------------------------------------------------------------
-    // PUT /api/v1/departments/{id}
-    // ----------------------------------------------------------------
     @PutMapping("/{id}")
     @Operation(summary = "Update a department",
             description = "Updates all fields of an existing department.")
@@ -50,9 +47,6 @@ public class DepartmentController {
         return departmentService.updateDepartment(id, request);
     }
 
-    // ----------------------------------------------------------------
-    // DELETE /api/v1/departments/{id}
-    // ----------------------------------------------------------------
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete a department",
@@ -62,10 +56,6 @@ public class DepartmentController {
         departmentService.deleteDepartment(id);
     }
 
-    // ----------------------------------------------------------------
-    // GET /api/v1/departments/{id}
-    // GET /api/v1/departments/{id}?expand=employee
-    // ----------------------------------------------------------------
     @GetMapping("/{id}")
     @Operation(
             summary = "Get department by ID (with optional employee expansion)",

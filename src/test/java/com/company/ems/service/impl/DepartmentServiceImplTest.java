@@ -4,8 +4,6 @@ import com.company.ems.dto.request.CreateDepartmentRequest;
 import com.company.ems.dto.request.UpdateDepartmentRequest;
 import com.company.ems.dto.response.DepartmentAnalyticsResponse;
 import com.company.ems.dto.response.DepartmentResponse;
-import com.company.ems.dto.response.DepartmentWithEmployeesResponse;
-import com.company.ems.dto.response.EmployeeResponse;
 import com.company.ems.dto.response.PagedResponse;
 import com.company.ems.entity.Department;
 import com.company.ems.entity.Employee;
@@ -34,8 +32,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)

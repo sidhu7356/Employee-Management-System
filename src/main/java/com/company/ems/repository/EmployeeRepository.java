@@ -85,6 +85,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     interface ReportingChainProjection {
         Long getId();
         String getName();
-        String getRole_title();
+        String getRoleTitle();
     }
 }
