@@ -12,8 +12,8 @@ spring:
 
 logging:
   level:
-    root: DEBUG
+    root: INFO
     com.company.ems: DEBUG
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    liquibase: DEBUG
+    org.hibernate.SQL: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: INFO
+    liquibase: INFO
